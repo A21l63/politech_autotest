@@ -5,3 +5,5 @@ gradle
 /src/test/resources/
 gradlew.bat
 gradlew
+/src/main/
+/src/test/java/ru/laetinandrej/polikek/tests/NoSelenideBasicTests/
