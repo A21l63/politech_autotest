@@ -1,4 +1,4 @@
-package ru.laetinandrej.polikek.testo;
+package ru.laetinandrej.polikek.tests.NoSelenideBasicTests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,11 +8,11 @@ public class MainTests {
     @Test
     public void fooTestFalse() {
         Main oops = new Main();
-        Assertions.assertEquals("ass we can", oops.foo());
+        Assertions.assertNotEquals("as", oops.foo());
     }
     @Test
     public void fooTestTrue() {
         Main oops = new Main();
-        Assertions.assertEquals("ass", oops.foo());
+        Assertions.assertEquals("as we can", oops.foo());
     }
 }

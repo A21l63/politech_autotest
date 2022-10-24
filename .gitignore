@@ -2,5 +2,6 @@
 build/
 .idea
 gradle
+/src/test/resources/
 gradlew.bat
 gradlew
