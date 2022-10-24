@@ -94,7 +94,6 @@ public class LoginTest extends LoginPage{
 
     @Test
     public void IncorrectPhoneNumber() {
-        //Фронт не дает возможности ввести логин длиннее заданных ограничений
         String phoneNumber = "+7-800-555-35-35";
         String password = "technoPolis2022";
 
