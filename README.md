@@ -1,3 +1,3 @@
 # Домашняя работа №1
 
-## Созданы тесты для логина
+## Тесты лежат по следующему пути: politech_autotest/src/test/java/ru/laetinandrej/polikek/tests/LoginPageTests/
