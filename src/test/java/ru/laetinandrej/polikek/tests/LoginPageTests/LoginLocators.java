@@ -8,4 +8,5 @@ public class LoginLocators {
     public static final String logoutButtonLoc = "//*[@class='lp' and @data-l = 't,logout']";
     public static final String logoutConfirmButtonLoc = "//*[@data-l='t,logout' and @type='submit']";
     public static final String timeLineLoc = "//*[@class = 'nav-side_i-w']";
+    public static final String topPanelLeftCorner = "//*[@id = 'topPanelLeftCorner']";
 }
