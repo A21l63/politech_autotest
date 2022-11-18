@@ -1,5 +1,6 @@
 package ru.laetinandrej.polikek.tests.LoginPageTests;
 
+import com.codeborne.selenide.WebDriverRunner;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,11 +11,13 @@ import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class LoginTest extends LoginPage{
+public class LoginTest{
 
     @AfterEach
-    void NoLogginIn() {
-        if ($(By.xpath(LoginLocators.topPanelLeftCorner)).exists()) {
+    void LogOutIfNeeded() {
+        LoginPage logPage = new LoginPage();
+        if (!WebDriverRunner.getWebDriver().getCurrentUrl().equals(logPage.loginPage) || $(By.xpath(LoginLocators.topPanelLeftCorner)).exists()) {
+
             $(By.xpath(LoginLocators.ucardToolbarLoc)).click();
             $(By.xpath(LoginLocators.logoutButtonLoc)).click();
             $(By.xpath(LoginLocators.logoutConfirmButtonLoc)).click();
@@ -22,42 +25,50 @@ public class LoginTest extends LoginPage{
     }
     @Test
     public void NoLoginIncorrectPassword() {
+        LoginPage logPage = new LoginPage();
+
         String login = "";
         String password = "IncorrectPassword";
 
-        LogginIn(login, password);
+        logPage.LogginIn(login, password);
 
-        $(byText(NoLoginMessage)).should(exist);
+        $(byText(logPage.NoLoginMessage)).should(exist);
     }
 
     @Test
     public void IncorrectLoginNoPassword() {
+        LoginPage logPage = new LoginPage();
+
         String login = "IncorrectLogin";
         String password = "";
 
-        LogginIn(login, password);
+        logPage.LogginIn(login, password);
 
-        $(byText(NoPasswordMessage)).should(exist);
+        $(byText(logPage.NoPasswordMessage)).should(exist);
     }
 
     @Test
     public void NoLoginCorrectPassword() {
+        LoginPage logPage = new LoginPage();
+
         String login = "";
         String password = "technoPolis2022";
 
-        LogginIn(login, password);
+        logPage.LogginIn(login, password);
 
-        $(byText(NoLoginMessage)).should(exist);
+        $(byText(logPage.NoLoginMessage)).should(exist);
     }
 
     @Test
     public void CorrectLoginNoPassword() {
+        LoginPage logPage = new LoginPage();
+
         String login = "technoPol6";
         String password = "";
 
-        LogginIn(login, password);
+        logPage.LogginIn(login, password);
 
-        $(byText(NoPasswordMessage)).should(exist);
+        $(byText(logPage.NoPasswordMessage)).should(exist);
     }
 
 
@@ -70,18 +81,22 @@ public class LoginTest extends LoginPage{
     }
     )
     public void InvalidData(String login, String password) {
-        LogginIn(login,password);
+        LoginPage logPage = new LoginPage();
 
-        $(byText(InvalidDataMessage)).should(exist);
+        logPage.LogginIn(login,password);
+
+        $(byText(logPage.InvalidDataMessage)).should(exist);
     }
 
 
     @Test
     public void CorrectLoginCorrectPassword() {
+        LoginPage logPage = new LoginPage();
+
         String login = "technoPol6";
         String password = "technoPolis2022";
 
-        LogginIn(login, password);
+        logPage.LogginIn(login, password);
         // Проверка на успешность входа на страницу (появилась кнопка "Лента")
         $(By.xpath(LoginLocators.timeLineLoc)).should(exist);
     }

@@ -10,8 +10,11 @@ public class LoginPage {
     protected final String InvalidDataMessage = "Неправильно указан логин и/или пароль";
     protected final String NoLoginMessage = "Введите логин";
     protected final String NoPasswordMessage = "Введите пароль";
-    protected void LogginIn(String login, String password){
+
+    public LoginPage(){
         open(loginPage);
+    }
+    protected void LogginIn(String login, String password){
 
         $(By.xpath(LoginLocators.loginLoc)).append(login);
         $(By.xpath(LoginLocators.passwordLoc)).append(password);
