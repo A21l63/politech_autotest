@@ -9,7 +9,6 @@ import ru.laetinandrej.polikek.elements.navigationToolbar.ToolBar;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginPage extends BasePage{
