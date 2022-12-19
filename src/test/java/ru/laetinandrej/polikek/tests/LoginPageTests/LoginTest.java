@@ -1,105 +1,104 @@
 package ru.laetinandrej.polikek.tests.LoginPageTests;
 
+import com.codeborne.selenide.WebDriverRunner;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
+public class LoginTest{
 
-public class LoginTest extends LoginPage{
+    @AfterEach
+    void LogOutIfNeeded() {
+        LoginPage logPage = new LoginPage();
+        if (!WebDriverRunner.getWebDriver().getCurrentUrl().equals(logPage.loginPage) || $(By.xpath(LoginLocators.topPanelLeftCorner)).exists()) {
 
+            $(By.xpath(LoginLocators.ucardToolbarLoc)).click();
+            $(By.xpath(LoginLocators.logoutButtonLoc)).click();
+            $(By.xpath(LoginLocators.logoutConfirmButtonLoc)).click();
+        }
+    }
     @Test
     public void NoLoginIncorrectPassword() {
+        LoginPage logPage = new LoginPage();
+
         String login = "";
         String password = "IncorrectPassword";
 
-        LogginIn(login, password);
+        logPage.LogginIn(login, password);
 
-        $(byText(NoLoginMessage)).should(exist);
+        $(byText(logPage.NoLoginMessage)).should(exist);
     }
 
     @Test
     public void IncorrectLoginNoPassword() {
+        LoginPage logPage = new LoginPage();
+
         String login = "IncorrectLogin";
         String password = "";
 
-        LogginIn(login, password);
+        logPage.LogginIn(login, password);
 
-        $(byText(NoPasswordMessage)).should(exist);
+        $(byText(logPage.NoPasswordMessage)).should(exist);
     }
 
     @Test
     public void NoLoginCorrectPassword() {
+        LoginPage logPage = new LoginPage();
+
         String login = "";
         String password = "technoPolis2022";
 
-        LogginIn(login, password);
+        logPage.LogginIn(login, password);
 
-        $(byText(NoLoginMessage)).should(exist);
+        $(byText(logPage.NoLoginMessage)).should(exist);
     }
 
     @Test
     public void CorrectLoginNoPassword() {
+        LoginPage logPage = new LoginPage();
+
         String login = "technoPol6";
         String password = "";
 
-        LogginIn(login, password);
+        logPage.LogginIn(login, password);
 
-        $(byText(NoPasswordMessage)).should(exist);
+        $(byText(logPage.NoPasswordMessage)).should(exist);
     }
 
-    @Test
-    public void IncorrectLoginIncorrectPassword() {
-        String login = "IncorrectPassword";
-        String password = "IncorrectLogin";
 
-        LogginIn(login,password);
+    @ParameterizedTest
+    @CsvSource(value = {
+            "IncorrectLogin, IncorrectPassword",
+            "technoPol6, IncorrectPassword",
+            "IncorrectLogin, technoPolis2022",
+            "+7-800-555-35-3555, technoPolis2022"
+    }
+    )
+    public void InvalidData(String login, String password) {
+        LoginPage logPage = new LoginPage();
 
-        $(byText(InvalidDataMessage)).should(exist);
+        logPage.LogginIn(login,password);
+
+        $(byText(logPage.InvalidDataMessage)).should(exist);
     }
 
-    @Test
-    public void CorrectLoginIncorrectPassword() {
-        String login = "IncorrectLogin";
-        String password = "IncorrectPassword";
-
-        LogginIn(login, password);
-
-        $(byText(InvalidDataMessage)).should(exist);
-    }
-
-    @Test
-    public void IncorrectLoginCorrectPassword() {
-        String login = "IncorrectLogin";
-        String password = "technoPolis2022";
-
-        LogginIn(login, password);
-
-        $(byText(InvalidDataMessage)).should(exist);
-    }
 
     @Test
     public void CorrectLoginCorrectPassword() {
+        LoginPage logPage = new LoginPage();
+
         String login = "technoPol6";
         String password = "technoPolis2022";
 
-        LogginIn(login, password);
+        logPage.LogginIn(login, password);
         // Проверка на успешность входа на страницу (появилась кнопка "Лента")
         $(By.xpath(LoginLocators.timeLineLoc)).should(exist);
-
-        LogOut();
-    }
-
-    @Test
-    public void IncorrectPhoneNumber() {
-        String phoneNumber = "+7-800-555-35-35";
-        String password = "technoPolis2022";
-
-        LogginIn(phoneNumber, password);
-
-        $(byText(InvalidDataMessage)).should(exist);
     }
 }
 
