@@ -1,33 +1,28 @@
-package ru.laetinandrej.polikek.tests.LoginTest;
+package ru.laetinandrej.polikek.tests.loginTest;
 
-import com.codeborne.selenide.WebDriverRunner;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import ru.laetinandrej.polikek.pages.LoginPage;
 import ru.laetinandrej.polikek.tests.BaseTest;
 
-import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CorrectData extends BaseTest{
+public class CorrectDataTest extends BaseTest{
     @Test
     public void CorrectLoginCorrectPassword() {
-        logPage = new LoginPage();
+        loginPage = new LoginPage();
 
         String login = "technoPol6";
         String password = "technoPolis2022";
 
-        logPage.logginIn(login, password);
+        loginPage.loginIn(login, password);
         // Проверка на успешность входа на страницу (появилась кнопка "Лента")
-        assertTrue(logPage.timeLineLocExists());
+        assertTrue(loginPage.timeLineLocExists());
     }
 
     @AfterEach
     void LogOutIfNeeded() {
-        if (!WebDriverRunner.getWebDriver().getCurrentUrl().equals(logPage.PageUrl) || $(By.xpath(logPage.TopPanelLeftCorner)).exists()) {
-            logPage.logOutIfNeeded();
-        }
+            loginPage.logOutIfNeeded();
     }
 }
 

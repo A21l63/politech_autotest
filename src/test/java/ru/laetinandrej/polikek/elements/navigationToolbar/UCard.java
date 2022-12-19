@@ -1,7 +1,6 @@
-package ru.laetinandrej.polikek.elements.NavigationToolbar;
+package ru.laetinandrej.polikek.elements.navigationToolbar;
 
 import org.openqa.selenium.By;
-import ru.laetinandrej.polikek.elements.LogoutConfirmationWindow;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -14,8 +13,6 @@ public class UCard {
     public void openCard(){
         $(By.xpath(InstanceXPath)).shouldBe(visible).click();
     }
-
-
     public void logOutButtonClick(){
         $(By.xpath(LogoutButtonLoc)).shouldBe(visible).click();
     }
