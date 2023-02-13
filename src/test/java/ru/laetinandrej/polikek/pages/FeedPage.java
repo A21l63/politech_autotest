@@ -1,6 +1,7 @@
 package ru.laetinandrej.polikek.pages;
 
 import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -26,18 +27,22 @@ public class FeedPage extends BasePage{
         assertTrue($(By.xpath(uniqueComponent)).exists());
     }
 
+    @Step("Открытие диалогового окна заметки")
     public void openNoteWindow(){
         $(By.xpath(Note_Field)).shouldBe(visible).click();
     }
 
+    @Step("Ввод текста")
     public void appendText(String noteText){
         $(By.xpath(Text_Field)).shouldBe(visible).append(noteText);
     }
 
+    @Step("Выбор темы")
     public void chooseTheme(){
         $(By.xpath(Auf_Quote_Theme)).shouldBe(visible).click();
     }
 
+    @Step("Публикация")
     public void postNote(){
         $(By.xpath(Note_Submit_Button)).shouldBe(visible).click();
     }

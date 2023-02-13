@@ -1,18 +1,17 @@
 package ru.laetinandrej.polikek.tests;
 
+import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import ru.laetinandrej.polikek.elements.NavigationMenu;
 import ru.laetinandrej.polikek.pages.LoginPage;
 import ru.laetinandrej.polikek.pages.PhotoPage;
 import ru.laetinandrej.polikek.pages.UserPage;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-import static com.codeborne.selenide.Selenide.$;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -24,10 +23,15 @@ public class UploadPhotoTest extends BaseTest{
     }
 
     @Test
-    void addNoteWithThemeAndCheckFeed() throws InterruptedException {
+    @DisplayName("Добавление фотографии")
+    @Epic(value = "Фотографии")
+    @Feature(value = "Добавление фотографии")
+    @Description(value = "Добавление фотографии и последующим удалением оной")
+    @Severity(value = SeverityLevel.NORMAL)
+    void addPhotoAndDeleteAfter() throws InterruptedException {
         userPage = new UserPage();
-        $(By.xpath(userPage.Photo_Upload_Xpath)).
-                uploadFile(new File("src/test/resources/img/auf.jpg"));
+
+        userPage.uploadPhoto(userPage.AufPhotoPath);
 
         NavigationMenu navigationMenu = new NavigationMenu();
         navigationMenu.selectPhoto_Tab();

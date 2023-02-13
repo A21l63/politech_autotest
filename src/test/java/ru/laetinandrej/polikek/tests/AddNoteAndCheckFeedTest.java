@@ -1,7 +1,9 @@
 package ru.laetinandrej.polikek.tests;
 
+import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.laetinandrej.polikek.pages.FeedPage;
 import ru.laetinandrej.polikek.pages.LoginPage;
@@ -22,6 +24,11 @@ public class AddNoteAndCheckFeedTest extends BaseTest{
     }
 
     @Test
+    @DisplayName("Добавление заметки с выбором фона")
+    @Epic(value = "Заметки")
+    @Story(value = "Корректное создание заметки")
+    @Description(value = "Добавление заметки с выбором фона")
+    @Severity(value = SeverityLevel.MINOR)
     void addNoteWithThemeAndCheckFeed() throws InterruptedException {
         String noteText = "Пусть лучше ногу жмет ботинок, чем руку айтишник \n Джейсон Стэтхэм";
         feedPage = new FeedPage();

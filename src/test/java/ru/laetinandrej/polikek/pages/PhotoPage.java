@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selectors.byText;
@@ -27,14 +28,17 @@ public class PhotoPage extends BasePage{
         assertEquals(WebDriverRunner.getWebDriver().getCurrentUrl(), pageUrl);
     }
 
+    @Step("Проверка на наличие фото")
     public boolean checkAnyPhotosExist(){
         return $(By.xpath(Uploaded_Photos)).exists();
     }
 
+    @Step("Получение всех фотографий")
     public ElementsCollection getPhotos(){
         return $$(By.xpath(Uploaded_Photos));
     }
 
+    @Step("Удаление фоографий")
     public void deleteAllPhotos(ElementsCollection photos){
         for(SelenideElement element: photos){
             element.click();

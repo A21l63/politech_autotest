@@ -3,10 +3,12 @@ package ru.laetinandrej.polikek.pages;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Step;
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import ru.laetinandrej.polikek.elements.NavigationMenu;
 
+import java.io.File;
 import java.util.List;
 
 import static com.codeborne.selenide.Selectors.byText;
@@ -19,6 +21,7 @@ public class UserPage extends BasePage{
     public final String Note_Time = "//*[@class = 'feed_date']";
     public final String Popup_Tabs = "//*[@class = 'new_topic_icodown']";
     public final String Delete_Button = "//*[contains(@href, 'profile')]";
+    public final String AufPhotoPath = "src/test/resources/img/auf.jpg";
     public UserPage(){
         pageUrl = "https://ok.ru/profile/586899577999";
         uniqueComponent = "Вся информация";
@@ -32,14 +35,18 @@ public class UserPage extends BasePage{
         assertEquals(WebDriverRunner.getWebDriver().getCurrentUrl(), pageUrl);
     }
 
+    @Step("Переход на страницу заметок")
     public void goToNotes(){
         NavigationMenu navigationMenu = new NavigationMenu();
         navigationMenu.selectNoteTab();
     }
 
+
     public List<String> getTime(){
         return $$(By.xpath(Note_Time)).texts();
     }
+
+    @Step("Проверка успешности создания заметки")
     public boolean checkTimePoints(List<String> points) {
         DateTime time = DateTime.now();
         int minutes = time.getMinuteOfHour();
@@ -60,6 +67,13 @@ public class UserPage extends BasePage{
             actions().moveToElement(element).click();
             $(byText("Удалить")).click();
         }
+    }
+
+    @Step("Загрузка фото")
+
+    public void uploadPhoto(String path){
+        $(By.xpath(Photo_Upload_Xpath)).
+                uploadFile(new File(path));
     }
 }
 

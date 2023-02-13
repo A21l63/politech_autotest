@@ -1,6 +1,7 @@
 package ru.laetinandrej.polikek.pages;
 
 import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import ru.laetinandrej.polikek.elements.LoginInWindow;
 import ru.laetinandrej.polikek.elements.LogoutConfirmationWindow;
@@ -37,6 +38,8 @@ public class LoginPage extends BasePage{
         }
         assertTrue($(By.xpath(uniqueComponent)).exists());
     }
+
+    @Step("Выход из аккаунта")
     public void logOutIfNeeded() {
         if (!WebDriverRunner.getWebDriver().getCurrentUrl().equals(pageUrl)){
             openPage();
@@ -55,24 +58,31 @@ public class LoginPage extends BasePage{
             }
         }
     }
+
+    @Step("Процесс входа")
     public void loginIn(String login, String password){
         logWindow.appendLogin(login);
         logWindow.appendPassword(password);
         logWindow.acceptLoginIn();
     }
 
+    @Step("Сообщение об отсутствии текста в поле 'Логин'")
     public boolean noLoginMessageExists(){
         return $(byText(No_Login_Message)).exists();
     }
 
+    @Step("Сообщение об отсутствии текста в поле 'Пароль'")
     public boolean noPasswordMessageExists() {
         return $(byText(No_Password_Message)).exists();
     }
 
+    @Step("Сообщение о некорректности введенных данных")
     public boolean invalidDataMessageExists(){
         return $(byText(Invalid_Data_Message)).exists();
     }
 
+
+    @Step("Появилась кнопка 'Лента'")
     public boolean timeLineLocExists(){
         return $(By.xpath(Time_Line_Loc)).exists();
     }
